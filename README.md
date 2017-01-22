@@ -1,6 +1,8 @@
 # ionic2-JPush
 为ionic2调用极光插件提供符合angular2及TS的调用方式
 
+说在前面：如果想使用 ionic-native 的调用方式，可以参考https://github.com/zjcboy/ionic2-jpush-demo
+
 ### install
 先安装官方的cordova插件
 

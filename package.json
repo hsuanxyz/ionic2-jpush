@@ -1,6 +1,6 @@
 {
-  "name": "ion2-jpush",
-  "version": "0.0.1",
+  "name": "ionic2-jpush",
+  "version": "0.0.2",
   "description": "ionic2 ",
   "main": "./dist/index.js",
   "scripts": {
