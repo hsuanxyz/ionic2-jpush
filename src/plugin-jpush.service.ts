@@ -5,24 +5,26 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Platform } from "ionic-angular";
 
-declare var window;
-declare var document;
+declare var plugins:any;
+declare var document:any;
 
 @Injectable()
 export class JPushService {
 
   private jPushPlugin = (<any>window).plugins ? (<any>window).plugins.jPushPlugin || null : null;
 
-  constructor (    private platform: Platform,) {}
+  constructor (    private platform: Platform,) {
+  }
 
   wrapEventObservable(event: string): Observable<any> {
-    return new Observable(observer => {
+    return new Observable( (observer:any) => {
       document.addEventListener(event, observer.next.bind(observer), false);
       return () => document.removeEventListener(event, observer.next.bind(observer), false);
     });
   }
 
   init() {
+
     return new Promise((resolve,reject) =>{
 
       if(this.jPushPlugin){
@@ -39,11 +41,11 @@ export class JPushService {
     return new Promise((resolve,reject) =>{
 
       if(this.jPushPlugin){
-        this.jPushPlugin.getRegistrationID( id => {
-          if(id !== 0 ){
+        this.jPushPlugin.getRegistrationID( (id:any) => {
+          if(id){
             resolve(id)
           }else{
-            reject('失败')
+            reject('获取ID失败')
           }
         } )
       }else {
@@ -84,7 +86,7 @@ export class JPushService {
     return new Promise((resolve,reject) =>{
 
       if(this.jPushPlugin){
-        this.jPushPlugin.isPushStopped( result => {
+        this.jPushPlugin.isPushStopped( (result:any) => {
           if(result === 0 ){
             resolve(true)
           }else{
@@ -102,7 +104,7 @@ export class JPushService {
   setTagsWithAlias(tags:Array<any>,alias:string){
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
-        this.jPushPlugin.prototype.setTagsWithAlias(tags,alias);
+        this.jPushPlugin.setTagsWithAlias(tags,alias);
         resolve('ok')
       }else {
         reject('没有找到 jPushPlugin');
@@ -113,7 +115,7 @@ export class JPushService {
   setTags(tags:Array<any>){
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
-        this.jPushPlugin.prototype.setTags(tags);
+        this.jPushPlugin.setTags(tags);
         resolve('ok')
       }else {
         reject('没有找到 jPushPlugin');
@@ -124,7 +126,7 @@ export class JPushService {
   setAlias(alias:string){
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
-        this.jPushPlugin.prototype.setAlias(alias);
+        this.jPushPlugin.setAlias(alias);
         resolve('ok')
       }else {
         reject('没有找到 jPushPlugin');
@@ -137,7 +139,7 @@ export class JPushService {
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
         if(this.platform.is('ios')){
-          this.jPushPlugin.prototype.setBadge(value);
+          this.jPushPlugin.setBadge(value);
           resolve('ok')
         }else {
           reject('setBadge 方法只支持ios平台');
@@ -154,7 +156,7 @@ export class JPushService {
   return new Promise((resolve,reject) =>{
     if(this.jPushPlugin){
       if(this.platform.is('ios')){
-        this.jPushPlugin.prototype.reSetBadge();
+        this.jPushPlugin.reSetBadge();
         resolve('ok')
       }else {
         reject('reSetBadge 方法只支持ios平台');
@@ -171,7 +173,7 @@ export class JPushService {
     return new Promise((resolve, reject) => {
       if (this.jPushPlugin) {
         if (this.platform.is('ios')) {
-          this.jPushPlugin.prototype.setApplicationIconBadgeNumber(value);
+          this.jPushPlugin.setApplicationIconBadgeNumber(value);
           resolve('ok')
         } else {
           reject('setApplicationIconBadgeNumber 方法只支持ios平台');
@@ -188,7 +190,7 @@ export class JPushService {
 
       if(this.jPushPlugin){
         if(this.platform.is('ios')){
-          this.jPushPlugin.prototype.getApplicationIconBadgeNumber( num => {
+          this.jPushPlugin.getApplicationIconBadgeNumber( (num:any) => {
             resolve(num)
           } )
         }else {

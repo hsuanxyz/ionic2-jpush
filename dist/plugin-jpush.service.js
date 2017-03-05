@@ -1,23 +1,13 @@
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var Rx_1 = require("rxjs/Rx");
-var ionic_angular_1 = require("ionic-angular");
-var JPushService = (function () {
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Platform } from "ionic-angular";
+export var JPushService = (function () {
     function JPushService(platform) {
         this.platform = platform;
         this.jPushPlugin = window.plugins ? window.plugins.jPushPlugin || null : null;
     }
     JPushService.prototype.wrapEventObservable = function (event) {
-        return new Rx_1.Observable(function (observer) {
+        return new Observable(function (observer) {
             document.addEventListener(event, observer.next.bind(observer), false);
             return function () { return document.removeEventListener(event, observer.next.bind(observer), false); };
         });
@@ -39,11 +29,11 @@ var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 _this.jPushPlugin.getRegistrationID(function (id) {
-                    if (id !== 0) {
+                    if (id) {
                         resolve(id);
                     }
                     else {
-                        reject('失败');
+                        reject('获取ID失败');
                     }
                 });
             }
@@ -98,7 +88,7 @@ var JPushService = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
-                _this.jPushPlugin.prototype.setTagsWithAlias(tags, alias);
+                _this.jPushPlugin.setTagsWithAlias(tags, alias);
                 resolve('ok');
             }
             else {
@@ -110,7 +100,7 @@ var JPushService = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
-                _this.jPushPlugin.prototype.setTags(tags);
+                _this.jPushPlugin.setTags(tags);
                 resolve('ok');
             }
             else {
@@ -122,7 +112,7 @@ var JPushService = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
-                _this.jPushPlugin.prototype.setAlias(alias);
+                _this.jPushPlugin.setAlias(alias);
                 resolve('ok');
             }
             else {
@@ -135,7 +125,7 @@ var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 if (_this.platform.is('ios')) {
-                    _this.jPushPlugin.prototype.setBadge(value);
+                    _this.jPushPlugin.setBadge(value);
                     resolve('ok');
                 }
                 else {
@@ -152,7 +142,7 @@ var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 if (_this.platform.is('ios')) {
-                    _this.jPushPlugin.prototype.reSetBadge();
+                    _this.jPushPlugin.reSetBadge();
                     resolve('ok');
                 }
                 else {
@@ -169,7 +159,7 @@ var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 if (_this.platform.is('ios')) {
-                    _this.jPushPlugin.prototype.setApplicationIconBadgeNumber(value);
+                    _this.jPushPlugin.setApplicationIconBadgeNumber(value);
                     resolve('ok');
                 }
                 else {
@@ -186,7 +176,7 @@ var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 if (_this.platform.is('ios')) {
-                    _this.jPushPlugin.prototype.getApplicationIconBadgeNumber(function (num) {
+                    _this.jPushPlugin.getApplicationIconBadgeNumber(function (num) {
                         resolve(num);
                     });
                 }
@@ -245,12 +235,13 @@ var JPushService = (function () {
     JPushService.prototype.backgroundNotification = function () {
         return this.wrapEventObservable('jpush.backgroundNotification');
     };
+    JPushService.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    JPushService.ctorParameters = [
+        { type: Platform, },
+    ];
     return JPushService;
 }());
-JPushService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof ionic_angular_1.Platform !== "undefined" && ionic_angular_1.Platform) === "function" && _a || Object])
-], JPushService);
-exports.JPushService = JPushService;
-var _a;
 //# sourceMappingURL=plugin-jpush.service.js.map

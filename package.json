@@ -1,15 +1,33 @@
 {
   "name": "ionic2-jpush",
-  "version": "0.0.2",
-  "description": "ionic2 ",
+  "version": "0.0.3",
+  "description": "ionic2 jPush",
   "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
+    "ngc": "ngc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"tsc"
+    "build": "rm -rf aot dist && npm run ngc"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/HsuanXyz/ionic2-jpush.git"
+  },
+  "devDependencies": {
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "@types/core-js": "^0.9.35",
+    "ionic-angular": "2.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "typescript": "2.0.9",
+    "zone.js": "0.6.26"
   },
   "keywords": [
     "ionic2",
