@@ -1,10 +1,14 @@
 # ionic2-JPush
+
+[![Dependency Status](https://david-dm.org/HsuanXyz/ionic2-jpush.svg)](https://david-dm.org/HsuanXyz/ionic2-jpush)
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][downloads-url] [![MIT License][license-image]][license-url]
+
 为ionic2调用极光插件提供符合angular2及TS的调用方式
 
 说在前面：如果想使用 ionic-native 的调用方式，可以参考https://github.com/zjcboy/ionic2-jpush-demo
 
 ### install
-先安装官方的cordova插件
+先安装官方的cordova插件 https://github.com/jpush/jpush-phonegap-plugin.git
 
 `$ cordova plugin add jpush-phonegap-plugin --variable APP_KEY=your_jpush_appkey`
 
@@ -12,18 +16,46 @@
 
 `$ npm install ionic2-jpush --save`
 
-### use
 
+### Import module
+
+```
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { MyApp } from './app.component';
+...
+import { IonJPushModule } from 'ionic2-jpush'
+
+@NgModule({
+  declarations: [
+    MyApp,
+    ...
+  ],
+  imports: [
+    IonJPushModule,
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    ...
+  ],
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+})
+export class AppModule {}
+
+```
+
+### Use
 ```javascript
 import 'rxjs';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 ...
-import { JPushService } from 'ionic2-jpush/dist'
+import { JPushService } from 'ionic2-jpush'
 
 @Component({
-  templateUrl: 'plugins-test.html',
-  providers  : [JPushService]
+  templateUrl: 'plugins-test.html'
 
 })
 export class PluginsTestPage {
@@ -80,7 +112,6 @@ export class PluginsTestPage {
 }
 ```
 
-
 # API
 | 名称          |  参数 | 返回类型   | 描述 |
 | ------------- | ------- | ------- | ----------- |
@@ -102,14 +133,12 @@ export class PluginsTestPage {
 | receiveNotification | 无| Observable | 收到通知事件 |
 | receiveMessage | 无| Observable | 收到自定义消息事件 |
 | backgroundNotification | 无| Observable | 后台收到通知事件 |
-# Environment
-```
-Cordova CLI: 6.4.0
-Ionic Framework Version: 2.0.0-rc.5
-Ionic CLI Version: 2.1.18
-Ionic App Lib Version: 2.1.9
-Ionic App Scripts Version: 1.0.0
-OS: macOS Sierra
-Node Version: v6.9.2
-Xcode version: Xcode 8.2.1 Build version 8C1002
-```
+
+[npm-url]: https://www.npmjs.com/package/ionic2-jpush
+[npm-image]: https://img.shields.io/npm/v/ionic2-jpush.svg
+
+[downloads-image]: https://img.shields.io/npm/dm/ionic2-jpush.svg
+[downloads-url]: http://badge.fury.io/js/ionic2-jpush
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
