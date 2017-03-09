@@ -3,8 +3,10 @@ import { Platform } from "ionic-angular";
 export declare class JPushService {
     private platform;
     private jPushPlugin;
+    warnText: string;
     constructor(platform: Platform);
     wrapEventObservable(event: string): Observable<any>;
+    initJPushPlugin(): void;
     init(): Promise<{}>;
     getRegistrationID(): Promise<{}>;
     stopPush(): Promise<{}>;

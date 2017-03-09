@@ -12,8 +12,9 @@ declare var document:any;
 export class JPushService {
 
   private jPushPlugin = (<any>window).plugins ? (<any>window).plugins.jPushPlugin || null : null;
-
+  warnText:string = '没有找到 jPushPlugin 对象 \n也许你是在浏览器环境下运行或者没有正确安装插件； \n如果没有在Platform 的 ready 方法中调用，也会出现这样的情况。\n了解：http://ionicframework.com/docs/v2/api/platform/Platform/';
   constructor (    private platform: Platform,) {
+
   }
 
   wrapEventObservable(event: string): Observable<any> {
@@ -23,20 +24,26 @@ export class JPushService {
     });
   }
 
-  init() {
+  initJPushPlugin() {
+    this.jPushPlugin = (<any>window).plugins ? (<any>window).plugins.jPushPlugin || null : null;
+  }
 
+  init() {
+    this.initJPushPlugin();
     return new Promise((resolve,reject) =>{
 
       if(this.jPushPlugin){
         this.jPushPlugin.init();
         resolve('ok')
       }else {
-        reject('没有找到 jPushPlugin.init');
+        console.warn(this.warnText);
+        reject('没有找到 jPushPlugin');
       }
     })
   }
 
   getRegistrationID(){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
 
@@ -49,6 +56,7 @@ export class JPushService {
           }
         } )
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
 
@@ -57,6 +65,7 @@ export class JPushService {
   }
 
   stopPush(){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
 
@@ -64,24 +73,29 @@ export class JPushService {
         this.jPushPlugin.stopPush()
         resolve('ok')
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   resumePush(){
+    this.initJPushPlugin();
+
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
         this.jPushPlugin.resumePush();
 
         resolve('ok')
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   isPushStopped(){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
 
@@ -94,6 +108,7 @@ export class JPushService {
           }
         } )
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
 
@@ -102,39 +117,49 @@ export class JPushService {
   }
 
   setTagsWithAlias(tags:Array<any>,alias:string){
+    this.initJPushPlugin();
+
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
         this.jPushPlugin.setTagsWithAlias(tags,alias);
         resolve('ok')
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   setTags(tags:Array<any>){
+    this.initJPushPlugin();
+
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
         this.jPushPlugin.setTags(tags);
         resolve('ok')
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   setAlias(alias:string){
+    this.initJPushPlugin();
+
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
         this.jPushPlugin.setAlias(alias);
         resolve('ok')
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   setBadge(value:number){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
@@ -142,9 +167,11 @@ export class JPushService {
           this.jPushPlugin.setBadge(value);
           resolve('ok')
         }else {
+          console.warn('setBadge 方法只支持ios平台');
           reject('setBadge 方法只支持ios平台');
         }
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
@@ -152,6 +179,7 @@ export class JPushService {
   }
 
   reSetBadge(){
+    this.initJPushPlugin();
 
   return new Promise((resolve,reject) =>{
     if(this.jPushPlugin){
@@ -159,9 +187,11 @@ export class JPushService {
         this.jPushPlugin.reSetBadge();
         resolve('ok')
       }else {
+        console.warn('setBadge 方法只支持ios平台');
         reject('reSetBadge 方法只支持ios平台');
       }
     }else {
+      console.warn(this.warnText);
       reject('没有找到 jPushPlugin');
     }
   })
@@ -169,6 +199,7 @@ export class JPushService {
 }
 
   setApplicationIconBadgeNumber(value:number) {
+    this.initJPushPlugin();
 
     return new Promise((resolve, reject) => {
       if (this.jPushPlugin) {
@@ -176,15 +207,18 @@ export class JPushService {
           this.jPushPlugin.setApplicationIconBadgeNumber(value);
           resolve('ok')
         } else {
+          console.warn('setApplicationIconBadgeNumber 方法只支持ios平台');
           reject('setApplicationIconBadgeNumber 方法只支持ios平台');
         }
       } else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
   }
 
   getApplicationIconBadgeNumber() {
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
 
@@ -194,10 +228,12 @@ export class JPushService {
             resolve(num)
           } )
         }else {
+          console.warn('setBadge 方法只支持ios平台');
           reject('setBadge 方法只支持ios平台');
         }
 
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
 
@@ -206,6 +242,7 @@ export class JPushService {
   }
 
   clearNotificationById(id:number){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
@@ -213,9 +250,11 @@ export class JPushService {
           this.jPushPlugin.clearNotificationById(id);
           resolve('ok')
         }else {
+          console.warn('clearNotificationById 方法只支持android平台');
           reject('clearNotificationById 方法只支持android平台');
         }
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })
@@ -223,6 +262,7 @@ export class JPushService {
   }
 
   clearAllNotification(){
+    this.initJPushPlugin();
 
     return new Promise((resolve,reject) =>{
       if(this.jPushPlugin){
@@ -230,9 +270,11 @@ export class JPushService {
           this.jPushPlugin.clearAllNotification();
           resolve('ok')
         }else {
+          console.warn('clearAllNotification 方法只支持android平台');
           reject('clearAllNotification 方法只支持android平台');
         }
       }else {
+        console.warn(this.warnText);
         reject('没有找到 jPushPlugin');
       }
     })

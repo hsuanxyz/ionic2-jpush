@@ -63,30 +63,27 @@ export class PluginsTestPage {
     private platform: Platform,
     private jPushPlugin: JPushService
   ) {
-       let openNotification = this.jPushPlugin.openNotification()
-         .subscribe( res => {
-           console.log(res);
-           console.log('收到点击通知事件')
-         })
-
-
-       let receiveNotification = this.jPushPlugin.receiveNotification()
-         .subscribe( res => {
-           console.log(res)
-           console.log('收到通知')
-         })
-
-       let receiveMessage = this.jPushPlugin.receiveMessage()
-         .subscribe( res => {
-           console.log(res)
-           console.log('收到自定义消息')
-         })
-
-       let backgroundNotification = this.jPushPlugin.backgroundNotification()
-         .subscribe( res => {
-           console.log(res)
-           console.log('收到后台通知')
-         })
+        platform.ready().then( () =>{
+       
+             this.jPushPlugin.openNotification()
+               .subscribe( res => {
+                 console.log('收到推送');
+                 console.log(res)
+               });
+       
+             this.jPushPlugin.receiveNotification()
+               .subscribe( res => {
+                 console.log('收到推送');
+                 console.log(res)
+               });
+       
+             this.jPushPlugin.receiveMessage()
+               .subscribe( res => {
+                 console.log('收到推送');
+                 console.log(res)
+               });
+       
+           })
 
      }
 
