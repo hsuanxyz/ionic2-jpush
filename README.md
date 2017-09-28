@@ -63,6 +63,7 @@ export class PluginsTestPage {
     private platform: Platform,
     private jPushPlugin: JPushService
   ) {
+
         platform.ready().then( () =>{
        
              this.jPushPlugin.openNotification()
@@ -104,9 +105,22 @@ export class PluginsTestPage {
      .then(res => alert(res))
      .catch(err => alert(err))
      }
+     
+     /**
+     * 设置 setBadge
+     * 仅限IOS
+     * @param number
+     */
+     setBadge(number) {
+        if (this.platform.is('ios')) {
+            this.jPushPlugin.setBadge(number)
+            .then(res => alert(res))
+            .catch(err => alert(err))
+        }
+     } 
+    
   }
 
-}
 ```
 
 # API
