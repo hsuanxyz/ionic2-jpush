@@ -19,7 +19,7 @@
 
 ### Import module
 
-```
+```typescript
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -47,7 +47,8 @@ export class AppModule {}
 ```
 
 ### Use
-```javascript
+
+```typescript
 import 'rxjs';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
@@ -106,18 +107,22 @@ export class PluginsTestPage {
      .catch(err => alert(err))
      }
      
-     /**
-     * 设置 setBadge
-     * 仅限IOS
-     * @param number
-     */
-     setBadge(number) {
-        if (this.platform.is('ios')) {
-            this.jPushPlugin.setBadge(number)
-            .then(res => alert(res))
-            .catch(err => alert(err))
-        }
-     } 
+    /**
+    * 设置标签
+    */
+    setTags() {
+    this.jPushPlugin.setTags({
+      sequence: Date.now(),
+      tags: ['tag1', 'tag2']
+    })
+    .then((res:any) => {
+      console.log(res.tags.toString())
+    })
+    .catch(err => {
+      alert(err);
+      console.log(err)
+    })
+    }
     
   }
 
@@ -126,20 +131,41 @@ export class PluginsTestPage {
 # API
 | 名称          |  参数 | 返回类型   | 描述 |
 | ------------- | ------- | ------- | ----------- |
+| setDebugMode  | boolean | Promise | 设置 debug 模式   |
 | init          | 无 | Promise | 注册极光   |
 | getRegistrationID       | 无 | Promise | 获取ID  |
 | stopPush      | 无 | Promise | 停用推送          |
 | resumePush    | 无 | Promise | 恢复推送          |
 | isPushStopped | 无 | Promise | 推送是否被停用     |
-| setTagsWithAlias | tags:Array<any>,alias:string | Promise | 设置tags和alias     |
-| setTags | tags:Array<any>| Promise | 设置tags |
-| setAlias | alias:string| Promise | 设置alias |
-| setBadge | value:number| Promise | 设置badge 仅 ios |
-| setApplicationIconBadgeNumber | value:number| Promise | 设置badge 仅 ios |
-| reSetBadge | 无| Promise | 移除badge 仅 ios |
-| getApplicationIconBadgeNumber | 无| Promise | 获取badge 仅 ios |
-| clearNotificationById | id:number| Promise | 清除指定ID通知 仅 android |
-| clearAllNotification | id:number| Promise | 清除所有通知 仅 android |
+| setTags | { sequence: number; tags: string[] }| Promise | 设置 tags |
+| addTags | { sequence: number; tags: string[] }| Promise | 添加 tags |
+| deleteTags | { sequence: number; tags: string[] }| Promise | 删除 tags |
+| cleanTags | { sequence: number }| Promise | 清除tags |
+| getAllTags | { sequence: number }| Promise | 获取所有本机设置的 tags |
+| setAlias | { sequence: number; alias: string }| Promise | 设置 alias |
+| deleteAlias | { sequence: number }| Promise | 删除 alias |
+| getAlias | { sequence: number }| Promise |获取本机设置的 alias |
+
+# IOS API
+| 名称          |  参数 | 返回类型   | 描述 |
+| ------------- | ------- | ------- | ----------- |
+| setBadge | value:number| Promise | 设置 badge 至 JPush 服务器|
+| reSetBadge | 无| Promise | 移除 JPush 服务器 badge |
+| getApplicationIconBadgeNumber | 无| Promise | 获取本地 badge |
+| setApplicationIconBadgeNumber | value:number| Promise | 设置本地 badge |
+| clearAllLocalNotifications | 无| Promise | 清除所有本地推送对象 |
+
+# Android API
+| 名称          |  参数 | 返回类型   | 描述 |
+| ------------- | ------- | ------- | ----------- |
+| clearNotificationById | id:number| Promise | 清除指定ID通知 |
+| clearAllNotification | 无 | Promise | 清除所有通知 |
+| setPushTime | days: number , startHour: number, endHour: number | Promise | 设置允许推送时间 |
+| setSilenceTime | days: number , startHour: number, endHour: number | Promise | 设置通知静默时间 |
+
+# 可订阅事件
+| 名称          |  参数 | 返回类型   | 描述 |
+| ------------- | ------- | ------- | ----------- |
 | openNotification | 无| Observable | 点击通知事件 |
 | receiveNotification | 无| Observable | 收到通知事件 |
 | receiveMessage | 无| Observable | 收到自定义消息事件 |
