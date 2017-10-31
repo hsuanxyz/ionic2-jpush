@@ -1,5 +1,6 @@
 # ionic2-JPush
 
+![](demo.jpg)
 [![Dependency Status](https://david-dm.org/HsuanXyz/ionic2-jpush.svg)](https://david-dm.org/HsuanXyz/ionic2-jpush)
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][downloads-url] [![MIT License][license-image]][license-url]
 
