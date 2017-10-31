@@ -2,3 +2,6 @@
 .idea/
 node_modules/
 aot/
+platforms/
+www/
+plugins/

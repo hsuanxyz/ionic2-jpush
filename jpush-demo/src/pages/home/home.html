@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-item (click)="init()">初始化</button>
+  <button ion-item (click)="getRegistrationID()">获取ID</button>
+  <button ion-item (click)="isPushStopped()">推送是否停止</button>
+  <button ion-item (click)="stopPush()">停止推送</button>
+  <button ion-item (click)="resumePush()">恢复推送</button>
+  <button ion-item (click)="setAlias()">
+    设置别名
+    <ion-spinner *ngIf="_hasInStack('setAlias')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="deleteAlias()">
+    删除别名
+    <ion-spinner *ngIf="_hasInStack('deleteAlias')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="getAlias()">
+    获取别名
+    <ion-spinner *ngIf="_hasInStack('getAlias')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="setTags()">
+    设置 Tags
+    <ion-spinner *ngIf="_hasInStack('setTags')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="addTags()">
+    添加 Tags
+    <ion-spinner *ngIf="_hasInStack('addTags')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="getAllTags()">
+    获取当前绑定的所有 Tags
+    <ion-spinner *ngIf="_hasInStack('getAllTags')" item-end name="crescent"></ion-spinner>
+  </button>
+  <button ion-item (click)="cleanTags()">
+    清除所有标签 Tags
+    <ion-spinner *ngIf="_hasInStack('cleanTags')" item-end name="crescent"></ion-spinner>
+  </button>
+
+  <div style="background: #fddd9d;
+              color: #946902;
+              padding: 4px 16px;
+              border-radius: 6px;
+              margin-top: 16px;">
+    <pre>{{log}}</pre>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="_log = ''">
+      <ion-icon name="md-trash"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
