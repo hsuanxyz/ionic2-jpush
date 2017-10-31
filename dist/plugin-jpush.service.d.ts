@@ -5,7 +5,7 @@ export declare class JPushService {
     constructor();
     wrapEventObservable(event: string): Observable<any>;
     initJPushPlugin(): void;
-    setDebugMode(isOpen: boolean): Promise<{}>;
+    setDebugMode(debug: boolean): Promise<{}>;
     startJPushSDK(): Promise<{}>;
     init(): Promise<{}>;
     stopPush(): Promise<{}>;

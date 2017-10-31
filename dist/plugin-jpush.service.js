@@ -22,12 +22,12 @@ export var JPushService = (function () {
             this.jPushPlugin = null;
         }
     };
-    JPushService.prototype.setDebugMode = function (isOpen) {
+    JPushService.prototype.setDebugMode = function (debug) {
         var _this = this;
         this.initJPushPlugin();
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
-                _this.jPushPlugin.setDebugMode(isOpen);
+                _this.jPushPlugin.setDebugMode(debug);
                 resolve('ok');
             }
             else {
@@ -153,12 +153,7 @@ export var JPushService = (function () {
         return new Promise(function (resolve, reject) {
             if (_this.jPushPlugin) {
                 _this.jPushPlugin.isPushStopped(function (result) {
-                    if (result === 0) {
-                        resolve(true);
-                    }
-                    else {
-                        reject(false);
-                    }
+                    resolve(result);
                 });
             }
             else {

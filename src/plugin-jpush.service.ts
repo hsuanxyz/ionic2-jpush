@@ -34,12 +34,12 @@ export class JPushService {
         }
     }
 
-    setDebugMode(isOpen: boolean) {
+    setDebugMode(debug: boolean) {
         this.initJPushPlugin();
         return new Promise((resolve, reject) => {
 
             if (this.jPushPlugin) {
-                this.jPushPlugin.setDebugMode(isOpen);
+                this.jPushPlugin.setDebugMode(debug);
                 resolve('ok')
             } else {
                 console.warn(this.warnText);
@@ -166,11 +166,7 @@ export class JPushService {
 
             if (this.jPushPlugin) {
                 this.jPushPlugin.isPushStopped((result: any) => {
-                    if (result === 0) {
-                        resolve(true)
-                    } else {
-                        reject(false)
-                    }
+                    resolve(result)
                 })
             } else {
                 console.warn(this.warnText);
