@@ -412,7 +412,20 @@ export class JPushService {
                 reject('没有找到 jPushPlugin');
             }
         })
+    }
 
+    clearAllLocalNotifications() {
+        this.initJPushPlugin();
+
+        return new Promise((resolve, reject) => {
+            if (this.jPushPlugin) {
+                this.jPushPlugin.clearAllLocalNotifications();
+                resolve('ok')
+            } else {
+                console.warn(this.warnText);
+                reject('没有找到 jPushPlugin');
+            }
+        })
     }
 
     /**

@@ -370,6 +370,20 @@ export var JPushService = (function () {
             }
         });
     };
+    JPushService.prototype.clearAllLocalNotifications = function () {
+        var _this = this;
+        this.initJPushPlugin();
+        return new Promise(function (resolve, reject) {
+            if (_this.jPushPlugin) {
+                _this.jPushPlugin.clearAllLocalNotifications();
+                resolve('ok');
+            }
+            else {
+                console.warn(_this.warnText);
+                reject('没有找到 jPushPlugin');
+            }
+        });
+    };
     /**
      *
      * @param value

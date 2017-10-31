@@ -1,3 +1,4 @@
+/// <reference types="core-js" />
 import { Observable } from 'rxjs/Rx';
 export declare class JPushService {
     private jPushPlugin;
@@ -70,6 +71,7 @@ export declare class JPushService {
      */
     setBadge(value: number): Promise<{}>;
     reSetBadge(): Promise<{}>;
+    clearAllLocalNotifications(): Promise<{}>;
     /**
      *
      * @param value
