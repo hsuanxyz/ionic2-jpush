@@ -1,4 +1,4 @@
-/// <reference types="core-js" />
+// <reference types="core-js" />
 import { Observable } from 'rxjs/Rx';
 export declare class JPushService {
     private jPushPlugin;
