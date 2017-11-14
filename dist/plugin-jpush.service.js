@@ -1,6 +1,9 @@
+/**
+ * Created by youyou on 16/11/23.
+ */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-export var JPushService = (function () {
+var JPushService = /** @class */ (function () {
     function JPushService() {
         this.warnText = '没有找到 jPushPlugin 对象 \n也许你是在浏览器环境下运行或者没有正确安装插件； \n如果没有在Platform 的 ready 方法中调用，也会出现这样的情况。\n了解：http://ionicframework.com/docs/v2/api/platform/Platform/';
         this.initJPushPlugin();
@@ -510,7 +513,8 @@ export var JPushService = (function () {
         { type: Injectable },
     ];
     /** @nocollapse */
-    JPushService.ctorParameters = [];
+    JPushService.ctorParameters = function () { return []; };
     return JPushService;
 }());
+export { JPushService };
 //# sourceMappingURL=plugin-jpush.service.js.map

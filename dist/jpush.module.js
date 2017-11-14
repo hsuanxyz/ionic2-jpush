@@ -1,8 +1,11 @@
+/**
+ * Created by hsuanlee on 2017/3/5.
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from "ionic-angular";
 import { JPushService } from './plugin-jpush.service';
-export var IonJPushModule = (function () {
+var IonJPushModule = /** @class */ (function () {
     function IonJPushModule() {
     }
     IonJPushModule.decorators = [
@@ -12,7 +15,8 @@ export var IonJPushModule = (function () {
                 },] },
     ];
     /** @nocollapse */
-    IonJPushModule.ctorParameters = [];
+    IonJPushModule.ctorParameters = function () { return []; };
     return IonJPushModule;
 }());
+export { IonJPushModule };
 //# sourceMappingURL=jpush.module.js.map
